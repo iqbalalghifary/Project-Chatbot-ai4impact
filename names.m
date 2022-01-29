@@ -7,7 +7,7 @@
 \ daftar nama.
 \
 @: names
-names: angel fhilip ikbal nada rama
+names: angel fhilip iqbal nada rama
 
 Q: $names
 A: Halo, $names ! Layanan apa yang ingin kamu pilih ?
