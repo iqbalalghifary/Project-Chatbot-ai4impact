@@ -1,0 +1,278 @@
+<!-- file main.m -->
+\
+\ @author: Arnold Doray
+\ @date: 26 Nov 2020
+\
+
+terra/chat
+terra/chat/app
+terra/chat/log
+terra/chat/test
+
+include ./topics/step2.m
+include ./topics/firstmenu.m
+include ./topics/Room-Data.m
+include ./topics/layanan.m
+
+idk: I don't understand the question.
+
+: test 
+  \ NOTE: Add your questions to test here.
+  % Are you an idiot?
+  % Do you like bananas?
+  % Hello
+  % Goodbye
+  % duck
+  % My name is Fhilip
+  % Daftar
+  % Login
+  % Ayo mulai
+;
+
+: update-log 
+  \ this name needs to match the name in publish:
+  log: Proneka.AI
+;
+
+: publish 
+  
+  \ IMPORTANT - edit this part. It's the name of your bot.
+  publish: Proneka.AI
+  
+  \ What your bot says at first. 
+  init: ${ welcome }
+  
+  \ ------ PROPERTIES OF THE CHATBOT USER INTERFACE --------
+  
+  \ The background image. Should be tileable/repeatable. 
+  \ Or you can use a HTML color (see https://www.w3schools.com/colors/colors_picker.asp)
+  \ background: https://live.staticflickr.com/4135/4915115384_ca7b1df603_b.jpg
+  background: https://cdn.kibrispdr.org/data/wayang-siluet-png-1.jpg
+  \ Image of the avatar to use. 
+  avatar: https://images.pexels.com/photos/3394658/pexels-photo-3394658.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=100&w=100
+  \ Optional border on avatar
+  \ avatar-border: solid #AAA 1px
+  avatar-border: none
+  
+  \ Google font to import.
+  import-font: Open+Sans:wght@300
+  \ Font to use in bubbles
+  bubble-font: 'Open Sans', sans-serif
+  \ Font Color & Background of bot bubble
+  bubble-bot-color: #333
+  bubble-bot-background: #EEE
+  \ Font Color & Background for user bubble
+  bubble-user-color: white
+  bubble-user-background: #3366cc
+  \ Other bubble properties
+  \ bubble-border: solid blue 1px
+  bubble-border: none
+  bubble-radius: 16
+  bubble-font-size: 14
+  \ Max Width of bot bubble, in pixels
+  \ bot-bubble-width: 380
+  \ You can limit the number of responses displayed
+  \ limit: 3
+  
+  \ Optional properties of the "send" button.
+  \ Here's a sample from flaticon.com
+  \ <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+  \ send-button-image-url: https://www.flaticon.com/svg/static/icons/svg/3652/3652532.svg
+  \ send-button-image-style: padding-left:10px;
+  send-button-image-url: https://autocaffe.io/chat/play.png
+  send-button-image-style: none
+  
+
+  \ ----- PROPERTIES OF THE URL LINK FOR SOCIAL MEDIA --------
+  \ These will be visible when you share the link to your bot.
+  title: Proneka.AI
+  description: Tempat kamu dapat melokalkan dirimu secara virtual.
+  thumbnail: https://images.pexels.com/photos/3394658/pexels-photo-3394658.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=100&w=100
+  
+;
+
+<!-- ============================================================================================================ -->
+<!-- file step2.m -->
+\
+\ Copyright © 2021 fhlpmah all rights reserved.
+\
+\ @author: fhlpmah
+\ @date: 29 Jan 2022
+\
+\ A brief description of this program.
+\
+
+@: satu dua tiga
+satu: Tentang_Proneka_AI
+dua: Daftar
+\ tiga: Login
+
+: tentangProneka
+    q{
+      <p>
+      Proneka.AI adalah sebuah chatbot yang dibuat sedemikian rupa sebagai platform penjualan, pembelian serta pemasaran produk daripada penggunanya.<br><br>
+      Dengan penggunaan Proneka.AI, pengguna diharapkan dapat meningkatkan flow rate daripada penjualan sebuah produk hanya dengan menggunakan passive service, dimana pengguna hanya akan memantau perkembangannya. <br><br>
+      Selain itu pengguna juga dapat membeli sebuah produk dalam Proneka.AI dengan singkat dan mudah.
+    }q
+;
+
+Q: Tentang_Proneka_AI
+A: ${ tentangProneka }
+--
+
+\ Q: Login
+\ A: Halo Lokale! Sepertinya kalian sudah memiliki KTP Lokal mu. Masukkan username KTP mu dan kata sandimu untuk masuk ke Proneka.AI.
+\ --
+\ 
+
+<!-- =========================================================================================================== -->
+<!-- file firstmenu.m -->
+\
+\ Copyright © 2021 fhlpmah all rights reserved.
+\
+\ @author: fhlpmah
+\ @date: 29 Jan 2022
+\
+\ A brief description of this program.
+\
+: welcome ( -- "s" )
+
+    "Tentang Proneka AI" button ctx{ btn1 }
+    "Daftar" button ctx{ btn2 }
+    q{
+    
+    <b>Halo Lokale !!</b><br>
+    Selamat datang di Proneka.Ai Tempat kamu dapat melokalkan dirimu secara virtual. 
+    <br>
+    <br>
+    Perkenalkan, aku Neka, sahabat lokalmu untuk mengarungi nusantara. Sebelum kita memulai pejalanan lokal kita, pastikan kamu sudah mempunyai kartu identitasmu dalam keadaan siap. 
+    <br>
+    <br>
+    <center> #{btn1} </center>
+    <center> #{btn2} </center>
+    }q
+
+;
+
+<!-- =========================================================================================================== -->
+<!-- file Room-Data.m -->
+\
+\ Copyright © 2021 fhlpmah all rights reserved.
+\
+\ @author: fhlpmah
+\ @date: 29 Jan 2022
+\
+\ A brief description of this program.
+\
+
+Q: Daftar
+A: Hai Lokale! Yuk kita mulai dengan berkenalan biar ga tegang-tegang amat hehe. :D Mungkin kita bisa mulai dengan nama kamu. Siapa namamu?
+K: name
+--
+
+mem: name
+
+room: name 
+
+Q: $x
+A: Halo $x ! Berikut ini merupakan layanan yang tersedia di Proneka.AI : <br><br> 1.MEMBELI PRODUK <br> 2.MENJUAL PRODUK <br> 3.MEMASARKAN PRODUK <br><br> Silakan ketik angka sesuai dengan menu yang ingin kamu pilih.
+C: $x name!
+K: -name layanan
+--
+
+end-room
+
+room: layanan
+
+end-room
+\ room: email
+\ 
+\ Q: $x.@email
+\ A: Lalu daftarkan no rekeningmu juga. Silahkan ditulis
+\ C: $x email!
+\ K: -email age
+\ --
+\ 
+\ end-room
+
+<!-- =========================================================================================================== -->
+<!-- file layanan.m -->
+\
+\ Copyright © 2021 angelchrst all rights reserved.
+\
+\ @author: angelchrst
+\ @date: 28 Jan 2022
+\
+\ A brief description of this program.
+\
+
+@: id1 id2 id3
+id1: 1
+id2: 2
+id3: 3
+
+: response-1
+    q{
+        <center><b><u>KETENTUAN MEMBELI PRODUK</u></b></center>
+        <p>
+        Masukkan kode produk: <br>
+        Masukkan alamat E-mail anda: <br>
+        Masukkan no. rekening anda: <br>
+        Pilih metode pembayaran: [COD / M-BANKING] <br>
+        Masukkan alamat tujuan: <br><br>
+        Rincian transaksi akan dikirimkan via E-mail.<br><br>
+        </p>
+        <h4>Terima kasih telah mempercayai layanan Proneka.AI !</h4>
+    }q
+;
+
+: response-2
+    q{
+        <center><b><u>KETENTUAN MENJUAL PRODUK</u></b></center>
+        <p>
+        Masukkan nama anda: <br>
+        Masukkan no. rekening anda: <br>
+        Masukkan alamat E-mail anda: <br>
+        Masukkan nama produk: <br>
+        Masukkan harga produk: <br><br>
+        Anda akan mendapatkan pemberitahuan via E-mail jika barang berhasil terjual. <br><br>
+        </p>
+        <h4>Terima kasih telah mempercayai layanan Proneka.AI !</h4>
+    }q
+;
+    
+: response-3
+    q{
+        <center><b><u>KETENTUAN MEMASARKAN PRODUK</u></b></center>
+        <p>
+        Masukkan nama produk: <br>
+        Masukkan harga produk: <br><br>
+        Harga produk yang dipasarkan akan bertambah 5% dari harga asli produk sebagai biaya pemasaran.<br><br>
+        </p>
+        <h4>Terima kasih telah mempercayai layanan Proneka.AI !</h4>
+    }q
+;
+
+Q: Menu
+A: ${ response-1 }
+--
+
+Q: $id1
+A: ${ response-1 }
+--
+
+Q: $id2
+A: ${ response-2 }
+--
+
+Q: $id3
+A: ${ response-3 }
+--
+
+Q: $x
+A: Maaf menu layanan tidak tersedia. Silakan mengulang kembali.
+--
+
+
+
+<!-- =========================================================================================================== -->
